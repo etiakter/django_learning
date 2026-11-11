@@ -1,0 +1,13 @@
+If you use Django template files
+If your file language is Django HTML, Emmet might need a little configuration.
+
+Open VS Code Settings JSON:
+1. Press Ctrl + Shift + P.
+2. Search for Preferences: Open User Settings (JSON).
+3. Add this configuration inside the existing { }:
+
+"emmet.includeLanguages": {
+    "django-html": "html",
+    "jinja-html": "html"
+},
+"emmet.triggerExpansionOnTab": true

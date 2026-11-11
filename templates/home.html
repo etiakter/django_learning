@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block title %}
+    Home | Student Management
+{% endblock %}
+
+{% block content %}
+    <h1>Welcome to Student Management System</h1>
+
+    <p>Manage students and teachers easily.</p>
+
+    <h2>Student Operations</h2>
+    <p>
+        <a href="{% url 'student_list' %}">View Students</a>
+    </p>
+
+    <h2>Teacher Operations</h2>
+    <p>
+        <a href="#">View Teachers</a>
+    </p>
+{% endblock %}

@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block title %}
+    Update Student
+{% endblock  %}
+
+{% block content %}
+    <h1>Update Student</h1>
+    <form action="{% url 'student_update' student.id %}" method="post">
+        {% csrf_token %}
+        <p>
+            <label for="name">Name:</label>
+            <input type="text" name="name" id="name" value="{{student.name}}" required>
+        </p>
+        <p>
+            <label for="email">Email:</label>
+            <input type="Email" name="email" id="email" value="{{student.email}}" required>
+        </p>
+        <p>
+            <label for="age">Name:</label>
+            <input type="number" name="age" id="age" value="{{student.age}}" required>
+        </p>
+        <button type="submit">Update Student</button>
+        <a href="{% url 'student_list' %}">Cancel</a>
+    </form>
+
+{% endblock  %}

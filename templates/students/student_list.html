@@ -1,0 +1,120 @@
+{% extends "base.html" %}
+{% block title %}Student List{% endblock  %}
+
+{% block content %}
+<a href="{% url 'student_create' %}">Add New Student</a>
+<h1>Student{{ students|length|pluralize }}</h1>
+<p>
+    Total Records: {{page_obj.paginator.count}}
+    <br>
+    Records per page: {{page_obj.paginator.per_page}}
+</p>
+<div style="margin-bottom: 20px;">
+    <a href="{% url 'export_students_pdf' %}"
+       style="background: #dc3545; color: white;
+              padding: 10px 15px; text-decoration: none;
+              border-radius: 5px; margin-right: 10px;">
+        Export PDF
+    </a>
+
+    <a href="{% url 'export_students_excel' %}"
+       style="background: #198754; color: white;
+              padding: 10px 15px; text-decoration: none;
+              border-radius: 5px;">
+        Export Excel
+    </a>
+</div>
+
+<form method="GET" action="">
+    <input
+        type="text"
+        name="search"
+        placeholder="Search by name or email"
+        value="{{ search_query }}"
+    >
+
+    <button type="submit" style="display: inline-block;
+          padding: 8px 18px;
+          background-color: #066c08;
+          color: white;
+          text-decoration: none;
+          border-radius: 5px;">
+        Search
+    </button>
+
+    <a href="{% url 'student_list' %}"
+       style="display: inline-block;
+          padding: 8px 18px;
+          background-color: #6c757d;
+          color: white;
+          text-decoration: none;
+          border-radius: 5px;">
+    
+        Clear
+    </a>
+</form>
+<table  border="1" cellpadding="8">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Age</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for student in students %}
+        <tr>
+            <td>{{student.id}}</td>
+            <td>{{ student.name|first|upper }} {{student.name}}</td>
+            <td>{{student.email}}</td>
+            <td>{{student.age}}</td>
+            <td> 
+                <a href="{% url "student_update" student.id %}">Edit</a>
+                <form action="{% url 'student_delete' student.id %}" method="post"
+                 onsubmit="return confirm('Are you sure you want to delete this student?');">
+                    {% csrf_token %}
+                    <button type="submit"  style="background: none; border: none; padding: 0;
+                   color: red; text-decoration: underline;
+                   cursor: pointer;">Delete</button>
+                </form>
+            </td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="5">No student records found.</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+
+<div class="pagination" style="margin-top: 20px;">
+
+    {% if page_obj.has_previous %}
+        <a href="?search={{ search_query|urlencode }}&page=1">First</a>
+         &nbsp;&nbsp;&nbsp;&nbsp;
+        <a href="?search={{ search_query|urlencode }}&page={{ page_obj.previous_page_number }}">
+            Previous
+        </a>
+    {% endif %}
+
+    <span style="margin: 0 10px;">
+        Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}
+    </span>
+
+    {% if page_obj.has_next %}
+        <a href="?search={{ search_query|urlencode }}&page={{ page_obj.next_page_number }}">
+            Next
+        </a>
+        &nbsp;&nbsp;&nbsp;&nbsp;
+        <a href="?search={{ search_query|urlencode }}&page={{ page_obj.paginator.num_pages }}">
+            Last
+        </a>
+    {% endif %}
+
+</div>
+
+
+{% endblock  %}
