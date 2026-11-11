@@ -12,7 +12,7 @@ class DepartmentForm(forms.ModelForm):
             "logo"
         ]
 
-        widgets-{
+        widgets={
             'name':
             forms.TextInput(attrs={
                 'class':'form-control',
