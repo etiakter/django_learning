@@ -15,4 +15,4 @@ def get_department_list(*, search=""):
 def get_department_id(*, department_id):
     return Department.objects.filter(
         pk=department_id
-    ).first
+    ).first()
