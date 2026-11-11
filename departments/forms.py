@@ -9,7 +9,7 @@ class DepartmentForm(forms.ModelForm):
         fields = [
             "name", 
             "description", 
-            "logo"
+            "logo","is_active"
         ]
 
         widgets={
